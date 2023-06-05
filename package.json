@@ -1,0 +1,19 @@
+{
+  "name": "game_request",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "dotenv": "^16.1.4",
+    "fs": "^0.0.1-security",
+    "nodemon": "^2.0.22",
+    "telegraf": "^4.12.2"
+  }
+}
