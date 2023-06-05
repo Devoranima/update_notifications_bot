@@ -1,5 +1,6 @@
 const { Telegraf, Input} = require('telegraf');
 const fs = require('fs');
+const axios =  require("axios");
 
 require('dotenv').config();
 
@@ -24,7 +25,7 @@ async function main(){
         ctx.reply('Welcome, Stranger!');
         console.log(ctx.chat);
     });
-    
+
     bot.launch();
     const date = new Date();
     console.log('Bot started at ' + date.getHours() + ":" + date.getMinutes());
@@ -43,9 +44,9 @@ async function main(){
 async function updateLeaderBoard(bot){
     var now = new Date();
     var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0) - now;
-    //if (millisTill10 < 0) {
-    //    millisTill10 += 86400000; // it's after 7pm, try 7pm tomorrow.
-    //}
+    if (millisTill10 < 0) {
+        millisTill10 += 86400000; // it's after 7pm, try 7pm tomorrow.
+    }
     setTimeout(async ()=>{
         await parse();
         await clearDB();
