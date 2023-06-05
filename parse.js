@@ -21,7 +21,7 @@ async function parse(){
     let response;
     await axios.get('https://grimace.tech/api/players-0ee6d43502a1f05773e21f561a1a6063', {
         headers:{
-            password: 'odyssey_wen_listing_sir'
+            password: process.env.PASSWORD
         }
     }).then(res =>{
         response = (res.data.bestPlayers.map(e=>{

@@ -1,8 +1,6 @@
 const axios =  require("axios");
 const fs = require('fs');
 
-const PASSWORD = 'odyssey_wen_listing_sir';
-const PASSWORD_RESET = "oh_shit_i_am_sorry__sorry_for_what__our_daddy_told_us_not_to_be_ashamed_of_our_grimace";
 
 (async function(){
     setInterval(() => {
@@ -25,7 +23,7 @@ async function parse(){
     let response;
     await axios.get('https://grimace.tech/api/players-0ee6d43502a1f05773e21f561a1a6063', {
         headers:{
-            password: 'odyssey_wen_listing_sir'
+            password: process.env.PASSWORD
         }
     }).then(res =>{
         response = (res.data.bestPlayers.map(e=>{
