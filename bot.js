@@ -56,7 +56,7 @@ async function updateLeaderBoard(bot){
 
 async function sendNotification(bot){
     const date = new Date(); 
-    const date_message = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+    const date_message = date.getDate() +'.' + date.getMonth() + '.'+ date.getFullYear();
     for(let i = 0; i < ids.length; i++){
         bot.telegram.sendMessage(ids[i], "Leaderboard update " + date_message);
         bot.telegram.sendDocument(ids[i], Input.fromLocalFile("./wallets.txt"));
@@ -64,7 +64,7 @@ async function sendNotification(bot){
 }
 
 async function parse(){
-    create('wallets.txt');
+    create(filePath);
     let response;
     await axios.get('https://grimace.tech/api/players-0ee6d43502a1f05773e21f561a1a6063', {
         headers:{
@@ -79,7 +79,7 @@ async function parse(){
         }));
     })
     for(let i = 0; i < response.length; i++){
-        write('wallets.txt', response[i].address + ' ' + response[i].score + (i !== response.length - 1 ? '\n' : ''))
+        write(filePath, response[i].address + ' ' + response[i].score + (i !== response.length - 1 ? '\n' : ''))
     }
 }
 
