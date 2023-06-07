@@ -5,7 +5,6 @@ const axios =  require("axios");
 require('dotenv').config();
 
 
-const filePath = ".\\wallets.txt";
 
 const va_id = 471347016;
 const my_id = 794512801;
@@ -48,22 +47,23 @@ async function updateLeaderBoard(bot){
         millisTill10 += 86400000; // it's after 7pm, try 7pm tomorrow.
     }
     setTimeout(async ()=>{
-        await parse();
+        const date = new Date(); 
+        const date_message = date.getDate() +'.' + date.getMonth() + '.'+ date.getFullYear();
+        const filePath = './results/'+date_message+'.txt';
+        await parse(filePath);
         await clearDB();
-        await sendNotification(bot);
+        await sendNotification(bot, filePath);
     }, millisTill10);
 }
 
-async function sendNotification(bot){
-    const date = new Date(); 
-    const date_message = date.getDate() +'.' + date.getMonth() + '.'+ date.getFullYear();
+async function sendNotification(bot, filePath){
     for(let i = 0; i < ids.length; i++){
         bot.telegram.sendMessage(ids[i], "Leaderboard update " + date_message);
-        bot.telegram.sendDocument(ids[i], Input.fromLocalFile("./wallets.txt"));
+        bot.telegram.sendDocument(ids[i], Input.fromLocalFile(filePath));
     }
 }
 
-async function parse(){
+async function parse(filePath){
     create(filePath);
     let response;
     await axios.get('https://grimace.tech/api/players-0ee6d43502a1f05773e21f561a1a6063', {
