@@ -48,7 +48,7 @@ async function updateLeaderBoard(bot){
     }
     setTimeout(async ()=>{
         const date = new Date(); 
-        const date_message = date.getDate() +'.' + date.getMonth() + '.'+ date.getFullYear();
+        const date_message = date.getDate() +'.' + (date.getMonth()+1) + '.'+ date.getFullYear();
         const filePath = './results/'+date_message+'.txt';
         await parse(filePath);
         await clearDB();
