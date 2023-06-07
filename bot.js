@@ -52,11 +52,11 @@ async function updateLeaderBoard(bot){
         const filePath = './results/'+date_message+'.txt';
         await parse(filePath);
         await clearDB();
-        await sendNotification(bot, filePath);
+        await sendNotification(bot, date_message, filePath);
     }, millisTill10);
 }
 
-async function sendNotification(bot, filePath){
+async function sendNotification(bot, date_message, filePath){
     for(let i = 0; i < ids.length; i++){
         bot.telegram.sendMessage(ids[i], "Leaderboard update " + date_message);
         bot.telegram.sendDocument(ids[i], Input.fromLocalFile(filePath));
