@@ -37,6 +37,7 @@ async function main(){
     setInterval(async () => {
         await updateLeaderBoard(bot);
     }, 86400000);
+
 }
 
 
@@ -97,7 +98,7 @@ async function clearDB (){
 }
 
 
-const create = (filename) => {
+function create (filename) {
     fs.writeFileSync(filename, "", err =>{});
 }
 
