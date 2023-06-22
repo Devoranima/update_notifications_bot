@@ -102,7 +102,7 @@ async function clearDB (){
 }
 
 
-const create = (filename) => {
+function create (filename) {
     fs.writeFileSync(filename, "", err =>{});
 }
 
