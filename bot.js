@@ -36,16 +36,20 @@ async function main(){
     await updateLeaderBoard(bot);
     setInterval(async () => {
         await updateLeaderBoard(bot);
-    }, 86400000);
+    }, 7*24*60*60*1000);
 }
 
 
 async function updateLeaderBoard(bot){
     var now = new Date();
-    var millisTill10 = new Date(now.getFullYear(), now.getMonth(), now.getDate(), 22, 0, 0, 0) - now;
-    if (millisTill10 < 0) {
-        millisTill10 += 86400000; // it's after 7pm, try 7pm tomorrow.
-    }
+
+    const days = 7 - now.getUTCDay();
+    const hours = 24 - now.getUTCHours();
+    const minutes = 60 - now.getUTCMinutes();
+    const seconds = 60 - now.getUTCSeconds();
+
+    const time_left = (((days*24 + hours)*60 + minutes)*60 + seconds)*1000;
+
     setTimeout(async ()=>{
         const date = new Date(); 
         const date_message = date.getDate() +'.' + (date.getMonth()+1) + '.'+ date.getFullYear();
@@ -53,7 +57,7 @@ async function updateLeaderBoard(bot){
         await parse(filePath);
         await clearDB();
         await sendNotification(bot, date_message, filePath);
-    }, millisTill10);
+    }, time_left);
 }
 
 async function sendNotification(bot, date_message, filePath){
@@ -74,12 +78,13 @@ async function parse(filePath){
         response = (res.data.bestPlayers.map(e=>{
             return {
                 address: e.address,
-                score: e.score
+                score: e.score,
+                ip: e.ip
             }
         }));
     })
     for(let i = 0; i < response.length; i++){
-        write(filePath, response[i].address + ' ' + response[i].score + (i !== response.length - 1 ? '\n' : ''))
+        write(filePath, response[i].address + ' ' + response[i].score + ' ' + response[i].ip + (i !== response.length - 1 ? '\n' : ''))
     }
 }
 
