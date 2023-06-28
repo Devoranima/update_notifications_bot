@@ -43,10 +43,10 @@ async function main(){
 async function updateLeaderBoard(bot){
     var now = new Date();
 
-    const days = 7 - now.getUTCDay();
-    const hours = 24 - now.getUTCHours();
-    const minutes = 60 - now.getUTCMinutes();
-    const seconds = 60 - now.getUTCSeconds();
+    const days = (7 - now.getUTCDay())%7;
+    const hours = 23 - now.getUTCHours();
+    const minutes = 59 - now.getUTCMinutes();
+    const seconds = 59 - now.getUTCSeconds();
 
     const time_left = (((days*24 + hours)*60 + minutes)*60 + seconds)*1000;
 
