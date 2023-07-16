@@ -68,7 +68,7 @@ async function main(){
             ctx.telegram.deleteMessage(ctx.chat.id, messageId);
             messageId = null;
         }
-        await updateLeaderBoard();
+        await updateLeaderBoard(bot);
         ctx.reply('👍');
     })
 
@@ -102,7 +102,7 @@ async function sendNotification(bot, date_message, filePath){
     }
 }
 
-async function updateLeaderBoard(){
+async function updateLeaderBoard(bot){
     const date = new Date(); 
     const date_message = date.getDate() +'.' + (date.getMonth()+1) + '.'+ date.getFullYear();
     const filePath = './results/'+date_message+'.txt';
